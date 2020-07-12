@@ -1,0 +1,22 @@
+.app {
+  margin: 50px;
+}
+
+.wrapper {
+  display: flex;
+}
+
+.members {
+  flex-basis: 50%;
+}
+
+.member-form {
+  flex-basis: 50%;
+}
+
+.female {
+  color: pink;
+}
+.male {
+  color: blue;
+}

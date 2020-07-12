@@ -10,8 +10,11 @@
   "author": "yoshioka-s",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "^4.5.0",
+    "lodash": "^4.17.19",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-icons": "^3.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
