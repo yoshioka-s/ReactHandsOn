@@ -4,17 +4,18 @@ import { FaMars, FaVenus } from 'react-icons/fa'
 import './App.module.css'
 
 function App() {
-  const defaultForm = { lastName: '', firstName: '', gender: 0 }
-  const [form, setForm] = useState(defaultForm)
+  const [lastName, setLastname] = useState('')
+  const [firstName, setFirstname] = useState('')
+  const [gender, setGender] = useState(0)
 
   function changeLastName(e) {
-    setForm({ ...form, lastName: e.target.value })
+    setLastname(e.target.value)
   }
   function changeFirstName(e) {
-    setForm({ ...form, firstName: e.target.value })
+    setFirstname(e.target.value)
   }
   function changegender(value) {
-    setForm({ ...form, gender: value })
+    setGender(value)
   }
   const genderOptions = [
     { value: 0, label: '男' },
@@ -24,9 +25,10 @@ function App() {
   const [members, setMembers] = useState([])
   function addMember(e) {
     e.preventDefault()
-    const newMember = { ...form }
+    const newMember = { firstName, lastName, gender }
     setMembers([...members, newMember])
-    setForm(defaultForm)
+    setLastname('')
+    setFirstname('')
   }
 
   function shuffle() {
@@ -57,13 +59,13 @@ function App() {
           <div className="form-group">
             <label>
               姓
-              <input type="text" value={form.lastName} onChange={changeLastName} />
+              <input type="text" value={lastName} onChange={changeLastName} />
             </label>
           </div>
           <div className="form-group">
             <label>
               名
-              <input type="text" value={form.firstName} onChange={changeFirstName} />
+              <input type="text" value={firstName} onChange={changeFirstName} />
             </label>
           </div>
           <div className="form-group">
@@ -74,7 +76,7 @@ function App() {
                   type="radio"
                   value={option.value}
                   onChange={() => changegender(option.value)}
-                  checked={form.gender === option.value}
+                  checked={gender === option.value}
                 />
               </label>
             ))}
