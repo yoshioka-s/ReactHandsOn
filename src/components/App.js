@@ -1,29 +1,14 @@
 import React, { useState } from 'react'
 import _ from 'lodash'
 import './App.module.css'
-import { useInput } from '../hooks'
 import MemberList from './MemberList'
+import MemberForm from './MemberForm'
 
 function App() {
-  const [lastNameProps, resetLastname] = useInput('')
-  const [firstNameProps, resetFirstname] = useInput('')
-  const [gender, setGender] = useState(0)
-
-  function changegender(value) {
-    setGender(value)
-  }
-  const genderOptions = [
-    { value: 0, label: '男' },
-    { value: 1, label: '女' }
-  ]
-
   const [members, setMembers] = useState([])
-  function addMember(e) {
-    e.preventDefault()
-    const newMember = { firstName: firstNameProps.value, lastName: lastNameProps.value, gender }
+  function addMember({ lastName, firstName, gender }) {
+    const newMember = { firstName, lastName, gender }
     setMembers([...members, newMember])
-    resetLastname()
-    resetFirstname()
   }
 
   function shuffle() {
@@ -45,31 +30,7 @@ function App() {
             席替え
           </button>
         </div>
-        <form onSubmit={addMember} className="member-form form">
-          <div className="form-group">
-            <label>
-              姓
-              <input type="text" {...lastNameProps} />
-            </label>
-          </div>
-          <div className="form-group">
-            <label>
-              名
-              <input type="text" {...firstNameProps} />
-            </label>
-          </div>
-          <div className="form-group">
-            {genderOptions.map(option => (
-              <label key={option.value}>
-                {option.label}
-                <input type="radio" value={option.value} onChange={() => changegender(option.value)} checked={gender === option.value} />
-              </label>
-            ))}
-          </div>
-          <button type="submit" className="btn btn-primary">
-            追加
-          </button>
-        </form>
+        <MemberForm addMember={addMember} />
       </div>
     </div>
   )
