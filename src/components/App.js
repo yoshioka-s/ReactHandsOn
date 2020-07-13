@@ -4,11 +4,14 @@ import { FaMars, FaVenus } from 'react-icons/fa'
 import './App.module.css'
 
 function App() {
-  const defaultForm = { name: '', gender: 0 }
+  const defaultForm = { lastName: '', firstName: '', gender: 0 }
   const [form, setForm] = useState(defaultForm)
 
-  function changeName(e) {
-    setForm({ ...form, name: e.target.value })
+  function changeLastName(e) {
+    setForm({ ...form, lastName: e.target.value })
+  }
+  function changeFirstName(e) {
+    setForm({ ...form, firstName: e.target.value })
   }
   function changegender(value) {
     setForm({ ...form, gender: value })
@@ -38,13 +41,10 @@ function App() {
         <div className="members">
           <ul>
             {members.map((member, i) => {
-              const icon = member.gender ? <FaVenus /> : <FaMars />
-              const iconClass = member.gender ? 'female' : 'male'
               return (
                 <li key={i}>
-                  <i className={iconClass}>{icon}</i>
-
-                  {member.name}
+                  {member.gender ? <FaVenus className="female" /> : <FaMars className="male" />}
+                  {member.lastName} {member.firstName}
                 </li>
               )
             })}
@@ -56,8 +56,14 @@ function App() {
         <form onSubmit={addMember} className="member-form form">
           <div className="form-group">
             <label>
-              名前
-              <input type="text" value={form.name} onChange={changeName} />
+              姓
+              <input type="text" value={form.lastName} onChange={changeLastName} />
+            </label>
+          </div>
+          <div className="form-group">
+            <label>
+              名
+              <input type="text" value={form.firstName} onChange={changeFirstName} />
             </label>
           </div>
           <div className="form-group">
