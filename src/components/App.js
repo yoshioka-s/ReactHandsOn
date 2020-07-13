@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import _ from 'lodash'
-import { FaMars, FaVenus } from 'react-icons/fa'
 import './App.module.css'
 import { useInput } from '../hooks'
+import MemberList from './MemberList'
 
 function App() {
   const [lastNameProps, resetLastname] = useInput('')
@@ -39,24 +39,8 @@ function App() {
       <h1>席替え番長</h1>
       <div className="wrapper">
         <div className="members">
-          <ul>
-            {boys.map((member, i) => (
-              <li key={i}>
-                <FaMars className="male" />
-                {member.name}
-              </li>
-            ))}
-          </ul>
-          <ul>
-            {girls.map((member, i) => {
-              return (
-                <li key={i}>
-                  <FaVenus className="female" />
-                  {member.name}
-                </li>
-              )
-            })}
-          </ul>
+          <MemberList members={boys} />
+          <MemberList members={girls} />
           <button onClick={shuffle} className="btn btn-success">
             席替え
           </button>
