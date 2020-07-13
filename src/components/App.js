@@ -2,33 +2,28 @@ import React, { useState } from 'react'
 import _ from 'lodash'
 import { FaMars, FaVenus } from 'react-icons/fa'
 import './App.module.css'
+import { useInput } from '../hooks'
 
 function App() {
-  const [lastName, setLastname] = useState('')
-  const [firstName, setFirstname] = useState('')
+  const [lastNameProps, resetLastname] = useInput('')
+  const [firstNameProps, resetFirstname] = useInput('')
   const [gender, setGender] = useState(0)
 
-  function changeLastName(e) {
-    setLastname(e.target.value)
-  }
-  function changeFirstName(e) {
-    setFirstname(e.target.value)
-  }
   function changegender(value) {
     setGender(value)
   }
   const genderOptions = [
     { value: 0, label: '男' },
-    { value: 1, label: '女' },
+    { value: 1, label: '女' }
   ]
 
   const [members, setMembers] = useState([])
   function addMember(e) {
     e.preventDefault()
-    const newMember = { firstName, lastName, gender }
+    const newMember = { firstName: firstNameProps.value, lastName: lastNameProps.value, gender }
     setMembers([...members, newMember])
-    setLastname('')
-    setFirstname('')
+    resetLastname()
+    resetFirstname()
   }
 
   function shuffle() {
@@ -46,12 +41,11 @@ function App() {
         <div className="members">
           <ul>
             {boys.map((member, i) => (
-                <li key={i}>
-                  <FaMars className="male" />
-                  {member.name}
-                </li>
-              )
-            )}
+              <li key={i}>
+                <FaMars className="male" />
+                {member.name}
+              </li>
+            ))}
           </ul>
           <ul>
             {girls.map((member, i) => {
@@ -71,25 +65,20 @@ function App() {
           <div className="form-group">
             <label>
               姓
-              <input type="text" value={lastName} onChange={changeLastName} />
+              <input type="text" {...lastNameProps} />
             </label>
           </div>
           <div className="form-group">
             <label>
               名
-              <input type="text" value={firstName} onChange={changeFirstName} />
+              <input type="text" {...firstNameProps} />
             </label>
           </div>
           <div className="form-group">
-            {genderOptions.map((option) => (
+            {genderOptions.map(option => (
               <label key={option.value}>
                 {option.label}
-                <input
-                  type="radio"
-                  value={option.value}
-                  onChange={() => changegender(option.value)}
-                  checked={gender === option.value}
-                />
+                <input type="radio" value={option.value} onChange={() => changegender(option.value)} checked={gender === option.value} />
               </label>
             ))}
           </div>
