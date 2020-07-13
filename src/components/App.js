@@ -31,19 +31,28 @@ function App() {
     setMembers(shuffledMembers)
   }
 
+  const boys = _.filter(members, { gender: 0 })
+  const girls = _.filter(members, { gender: 1 })
+
   return (
     <div className="app">
       <h1>席替え番長</h1>
       <div className="wrapper">
         <div className="members">
           <ul>
-            {members.map((member, i) => {
-              const icon = member.gender ? <FaVenus /> : <FaMars />
-              const iconClass = member.gender ? 'female' : 'male'
+            {boys.map((member, i) => (
+                <li key={i}>
+                  <i className="male"><FaMars /></i>
+                  {member.name}
+                </li>
+              )
+            )}
+          </ul>
+          <ul>
+            {girls.map((member, i) => {
               return (
                 <li key={i}>
-                  <i className={iconClass}>{icon}</i>
-
+                  <i className="female"><FaVenus /></i>
                   {member.name}
                 </li>
               )
